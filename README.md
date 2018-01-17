@@ -111,7 +111,8 @@ WHERE OrderDate >= '1996-09-02' AND OrderDate <= '1996-09-06'
 
 ### Left Join
 
-Left Join Orders and Shippers Table
+Left Join *Orders* on  *Shippers*
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
 SELECT a.OrderID, a.ShipperID, b.ShipperName FROM Orders a
@@ -123,6 +124,34 @@ Note:
   - “left join” fills all the records in “left table” with matches on “right table”
   
 
+Left Join *Shippers* on *Orders*
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sql
+SELECT a.ShipperID, ShipperName, OrderID, OrderDate
+FROM Shippers a
+LEFT JOIN Orders b
+ON a.ShipperID = b.ShipperID
+```
+
+Note:
+  - If there are multiply copies in the ‘right table’ matching the ‘left table’. The ‘left table’ matched item will duplicate to have multiply copies.
+  - There is no difference between ‘left join’ and ‘join’ if there is no ‘missing’ on the join condition element(s) in the two tables. The following three queries return the same results (order may be different).
+  - ```sql
+	SELECT a.ShipperName, CustomerID, EmployeeID, OrderID FROM Shippers a
+	join Orders b
+	on a.ShipperID = b.ShipperID
+    ```
+  - ```sql
+	SELECT a.ShipperName, CustomerID, EmployeeID, OrderID FROM Shippers a
+	Left join Orders b
+	on a.ShipperID = b.ShipperID
+    ```
+  - ```sql
+	SELECT b.ShipperName, CustomerID, EmployeeID, OrderID FROM Orders a
+	Left join Shippers b
+	on a.ShipperID = b.ShipperID
+    ```
 
 
 
