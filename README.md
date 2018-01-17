@@ -109,5 +109,20 @@ SELECT OrderID, OrderDate FROM Orders
 WHERE OrderDate >= '1996-09-02' AND OrderDate <= '1996-09-06'
 ```
 
+### Left Join
+
+Left Join Orders and Shippers Table
+
+```sh
+SELECT a.OrderID, a.ShipperID, b.ShipperName FROM Orders a
+Left join Shippers b
+on a.ShipperID = b.ShipperID
+```
+
+Note:
+  - “left join” fills all the records in “left table” with matches on “right table”
+  
+
+
 
 
