@@ -34,7 +34,7 @@ RANK() OVER (PARTITION BY column_ID ORDER BY column_ID) AS rank_id
 
 ### Second Largest 
 
-Using LIMIT/TOP/OFFSET
+Using LIMIT
 
 ```sh
 SELECT number
@@ -42,6 +42,18 @@ FROM (
 SELECT number FROM Table
 ORDER BY number desc limit 2
 ) ORDER BY number limit 1
+```
+
+or Using TOP
+
+```sh
+SELECT TOP 1 salary   
+FROM (  
+SELECT TOP 2 salary  
+FROM employee_table  
+ORDER BY salary DESC) AS emp  
+ORDER BY salary ASC;
+
 ```
 
 Note:
@@ -63,5 +75,39 @@ Using self join
 select Quantity from OrderDetails a
 where (select count(*) from OrderDetails b where b.Quantity > a.Quantity) = 1
 ```
+
+### Maximun in each group
+
+Maximun Quantity in each of the OrderID:
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sh
+SELECT OrderDetailID, OrderID, max(Quantity) FROM OrderDetails
+group by OrderID
+```
+
+Note: 
+  - MAX acts on each of the group, similarly as MIN, SUM, etc. 
+  
+### Between Date
+
+OrderID between '1996-09-02' and '1996-09-06':
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sh
+SELECT OrderID, OrderDate FROM Orders
+WHERE OrderDate BETWEEN '1996-09-02' AND '1996-09-06'
+```
+
+Note:
+  - BETWEEN ... AND ... is inclusive.
+
+or 
+
+```sh
+SELECT OrderID, OrderDate FROM Orders
+WHERE OrderDate >= '1996-09-02' AND OrderDate <= '1996-09-06'
+```
+
 
 
