@@ -6,7 +6,7 @@ SQL Notes
 Top 5 Quantity From OrdersDetails:
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
-```sh
+```sql
 SELECT Quantity 
 FROM OrderDetails a
 where (select count(*) from OrderDetails b where b.Quantity > a.Quantity) < 3
@@ -14,7 +14,7 @@ order by Quantity desc
 ```
 or 
 
-```sh
+```sql
 SELECT Quantity, (select count(*) from OrderDetails b where b.Quantity > a.Quantity) as rnk 
 FROM OrderDetails a
 where (select count(*) from OrderDetails b where b.Quantity > a.Quantity) < 3
@@ -36,7 +36,7 @@ RANK() OVER (PARTITION BY column_ID ORDER BY column_ID) AS rank_id
 
 Using LIMIT
 
-```sh
+```sql
 SELECT number
 FROM (
 SELECT number FROM Table
@@ -46,7 +46,7 @@ ORDER BY number desc limit 2
 
 or Using TOP
 
-```sh
+```sql
 SELECT TOP 1 salary   
 FROM (  
 SELECT TOP 2 salary  
@@ -61,7 +61,7 @@ Note:
 
 Using max() and not in ()
 
-```sh
+```sql
 select max(Quantity) from OrderDetails
 where Quantity not in (select max(Quantity) from OrderDetails)
 ```
@@ -71,7 +71,7 @@ Notes:
 
 Using self join
 
-```sh
+```sql
 select Quantity from OrderDetails a
 where (select count(*) from OrderDetails b where b.Quantity > a.Quantity) = 1
 ```
@@ -81,7 +81,7 @@ where (select count(*) from OrderDetails b where b.Quantity > a.Quantity) = 1
 Maximun Quantity in each of the OrderID:
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
-```sh
+```sql
 SELECT OrderDetailID, OrderID, max(Quantity) FROM OrderDetails
 group by OrderID
 ```
@@ -94,7 +94,7 @@ Note:
 OrderID between '1996-09-02' and '1996-09-06':
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
-```sh
+```sql
 SELECT OrderID, OrderDate FROM Orders
 WHERE OrderDate BETWEEN '1996-09-02' AND '1996-09-06'
 ```
@@ -104,7 +104,7 @@ Note:
 
 or 
 
-```sh
+```sql
 SELECT OrderID, OrderDate FROM Orders
 WHERE OrderDate >= '1996-09-02' AND OrderDate <= '1996-09-06'
 ```
@@ -113,7 +113,7 @@ WHERE OrderDate >= '1996-09-02' AND OrderDate <= '1996-09-06'
 
 Left Join Orders and Shippers Table
 
-```sh
+```sql
 SELECT a.OrderID, a.ShipperID, b.ShipperName FROM Orders a
 Left join Shippers b
 on a.ShipperID = b.ShipperID
