@@ -111,7 +111,7 @@ WHERE OrderDate >= '1996-09-02' AND OrderDate <= '1996-09-06'
 
 ### Left Join
 
-Left Join *Orders* on  *Shippers*
+Left Join **Orders** on **Shippers**
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
@@ -124,7 +124,7 @@ Note:
   - “left join” fills all the records in “left table” with matches on “right table”
   
 
-Left Join *Shippers* on *Orders*
+Left Join **Shippers** on **Orders**
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
@@ -153,5 +153,73 @@ Note:
 	on a.ShipperID = b.ShipperID
     ```
 
+### String Match
 
+Write an SQL query to find names of employee start with 'A'?
 
+```sql
+SELECT * FROM Employees WHERE EmpName like 'A%'
+```
+
+### Where vs Having
+
+Select the *EmployeeID* with the number of orders larger than 10 from **Orders**
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sql
+SELECT EmployeeID, count(OrderID) FROM Orders
+group by EmployeeID
+having count(OrderID) > 10
+```
+
+Note:
+  - “WHERE” vs “HAVING”: The WHERE clause cannot be used to restrict groups. The HAVING clause should be used.
+  - “HAVING” need to be used after ‘GROUP BY’
+  
+### Most common elements in a column
+
+The most frequent *Quantity* in **OrderDetails**
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sql
+select Quantity, max(cnt) from (
+SELECT Quantity, count(Quantity) as cnt FROM [OrderDetails]
+group by Quantity) a
+```
+
+Second most frequent *Quantity* in **OrderDetails**
+```sql
+select Quantity, max(cnt) from (
+SELECT Quantity, count(Quantity) as cnt FROM [OrderDetails]
+group by Quantity) a
+where cnt not in (
+select max(cnt) from (
+SELECT Quantity, count(Quantity) as cnt FROM [OrderDetails]
+group by Quantity)
+)
+```
+or
+```sql
+select Quantity, cnt from (
+SELECT Quantity, count(Quantity) as cnt FROM [OrderDetails]
+group by Quantity) a
+order by cnt desc
+limit 1 offset 1
+```
+
+### Accumulative Sum 
+
+Get the first *OrderDetailID* from which the accumulative number of orders larger than 80 from **OrderDetails**
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sql
+select min(OrderDetailID), accsum from (
+SELECT OrderDetailID, (select sum(Quantity) from OrderDetails b where b.OrderDetailID <= a.OrderDetailID) as accsum FROM OrderDetails a
+)
+where accsum > 80
+```
+
+Note:
+  - Using self join
+  - Using sum()
+  - Pay attention to *<* or *<=* depending on question
