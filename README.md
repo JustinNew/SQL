@@ -105,7 +105,7 @@ Note:
   
 ### Between Date
 
-*OrderID* between '1996-09-02' and '1996-09-06':
+*OrderID* between *'1996-09-02'* and *'1996-09-06'*:
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
@@ -114,7 +114,7 @@ WHERE OrderDate BETWEEN '1996-09-02' AND '1996-09-06'
 ```
 
 Note:
-  - BETWEEN ... AND ... is inclusive.
+  - **BETWEEN ... AND ...** is inclusive.
 
 or 
 
@@ -135,7 +135,7 @@ on a.ShipperID = b.ShipperID
 ```
 
 Note:
-  - “left join” fills all the records in “left table” with matches on “right table”
+  - **left join** fills all the records in “left table” with matches on “right table”
   
 
 Left Join **Shippers** on **Orders**
@@ -173,6 +173,16 @@ Write an SQL query to find names of employee start with 'A'?
 
 ```sql
 SELECT * FROM Employees WHERE EmpName like 'A%'
+```
+
+or end with 'A'
+```sql
+SELECT * FROM Employees WHERE EmpName like '%A'
+```
+
+or 'A' in the second position
+```sql
+SELECT * FROM Employees WHERE EmpName like '_A%'
 ```
 
 ### Where vs Having
