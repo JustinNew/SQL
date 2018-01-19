@@ -3,34 +3,36 @@ SQL Notes
 
 ### Select top 3 without TOP/LIMIT/ROWNUM
 
-Top 5 Quantity From OrdersDetails:
+Top 3 Quantity From OrdersDetails:
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
 SELECT Quantity 
 FROM OrderDetails a
-where (select count(*) from OrderDetails b where b.Quantity > a.Quantity) < 3
+where (select count(*) from OrderDetails b where b.Quantity >= a.Quantity) <= 3
 order by Quantity desc
 ```
 or 
 
 ```sql
-SELECT Quantity, (select count(*) from OrderDetails b where b.Quantity > a.Quantity) as rnk 
+SELECT Quantity, (select count(*) from OrderDetails b where b.Quantity >= a.Quantity) as rnk 
 FROM OrderDetails a
-where (select count(*) from OrderDetails b where b.Quantity > a.Quantity) < 3
+where (select count(*) from OrderDetails b where b.Quantity >= a.Quantity) <= 3
 order by Quantity desc
 ```
 Note: 
-  - COUNT acts on WHERE b.Quantity > a.Quantity which is also aggregation condition 
+  - COUNT acts on WHERE b.Quantity >= a.Quantity which is also aggregation condition 
   - Table self-join to be as a condition
   - Using select to create a new column
   - The order of b.Quantity > a.Quantity
   - Pay attention to '>=' or '>'
-  - No need to use “ORDER BY” when using b.Quantity > a.Quantity
+  - No need to use “ORDER BY” when using b.Quantity >= a.Quantity
 
 ### Select top for each group
 
+```sql
 RANK() OVER (PARTITION BY column_ID ORDER BY column_ID) AS rank_id
+```
 
 ### Second Largest 
 
@@ -53,7 +55,13 @@ SELECT TOP 2 salary
 FROM employee_table  
 ORDER BY salary DESC) AS emp  
 ORDER BY salary ASC;
+```
 
+or Using Limit and Offset
+```sql
+SELECT OrderID, Quantity FROM OrderDetails
+Order By Quantity desc
+Limit 1 Offset 1
 ```
 
 Note:
