@@ -28,15 +28,9 @@ Note:
   - Pay attention to '>=' or '>'
   - No need to use “ORDER BY” when using b.Quantity >= a.Quantity
 
-### Select top for each group
-
-```sql
-RANK() OVER (PARTITION BY column_ID ORDER BY column_ID) AS rank_id
-```
-
 ### Second Largest 
 
-Using LIMIT
+Using **LIMIT**
 
 ```sql
 SELECT number
@@ -46,7 +40,7 @@ ORDER BY number desc limit 2
 ) ORDER BY number limit 1
 ```
 
-or Using TOP
+or Using **TOP**
 
 ```sql
 SELECT TOP 1 salary   
@@ -57,7 +51,7 @@ ORDER BY salary DESC) AS emp
 ORDER BY salary ASC;
 ```
 
-or Using Limit and Offset
+or Using **LIMIT** and **OFFSET**
 ```sql
 SELECT OrderID, Quantity FROM OrderDetails
 Order By Quantity desc
@@ -65,9 +59,9 @@ Limit 1 Offset 1
 ```
 
 Note:
-  - LIMIT/TOP/OFFSET are not always available; they are not basis SQL commands. 
+  - **LIMIT/TOP/OFFSET** are not always available; they are not basis SQL commands. 
 
-Using max() and not in ()
+Using **max()** and **not in ()**
 
 ```sql
 select max(Quantity) from OrderDetails
@@ -75,18 +69,30 @@ where Quantity not in (select max(Quantity) from OrderDetails)
 ```
 
 Notes:
-  - column IN (1,2,3) / column NOT IN (select id from table)
+  - **column IN (1,2,3)** / **column NOT IN (select id from table)**
 
-Using self join
+Using **self join**
 
 ```sql
 select Quantity from OrderDetails a
 where (select count(*) from OrderDetails b where b.Quantity > a.Quantity) = 1
 ```
 
+or 
+```sql
+SELECT OrderID, Quantity FROM OrderDetails a
+where (select count(*) from OrderDetails b where b.Quantity >= a.Quantity) = 2
+```
+
 ### Maximun in each group
 
-Maximun Quantity in each of the OrderID:
+Using **rank() over()**
+
+```sql
+RANK() OVER (PARTITION BY column_ID ORDER BY column_ID) AS rank_id
+```
+
+Maximun Quantity in each of the *OrderID*:
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
@@ -95,11 +101,11 @@ group by OrderID
 ```
 
 Note: 
-  - MAX acts on each of the group, similarly as MIN, SUM, etc. 
+  - **MAX** acts on each of the group, similarly as **MIN**, **SUM**, etc. 
   
 ### Between Date
 
-OrderID between '1996-09-02' and '1996-09-06':
+*OrderID* between '1996-09-02' and '1996-09-06':
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
