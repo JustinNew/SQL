@@ -185,6 +185,10 @@ or 'A' in the second position
 SELECT * FROM Employees WHERE EmpName like '_A%'
 ```
 
+Note:
+  - '%' is used as a wild card with 'like'
+  - '_' is used as one letter with 'like'
+
 ### Where vs Having
 
 Select the *EmployeeID* with the number of orders larger than 10 from **Orders**
