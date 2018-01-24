@@ -188,6 +188,17 @@ SELECT * FROM Employees WHERE EmpName like '_A%'
 Note:
   - '%' is used as a wild card with 'like'
   - '_' is used as one letter with 'like'
+  
+### Regular Expression
+
+SQL regular expression very similar to python regular expression.
+
+One example, find *LastName* begins with capital D:
+```sql
+SELECT * FROM Employees
+where LastName regexp '^D'
+```
+**This one does not work in w3schools**
 
 ### Where vs Having
 
