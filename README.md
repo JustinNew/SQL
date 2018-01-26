@@ -262,3 +262,55 @@ Note:
   - Using self join
   - Using sum()
   - Pay attention to *<* or *<=* depending on question
+  
+### Count in range
+
+Get the number of OrderDetailID with Quantity in 1-5, 6-10, 11-15, ... from OrderDetails
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sql
+Select (grp+1)*5 as Range, count(OrderDetailID), sum(Quantity) from
+(SELECT OrderDetailID, Quantity, ((Quantity - 1) / 5) as grp FROM [OrderDetails])
+group by grp
+```
+
+Note: 
+  - GROUP BY does not work on newly formed names, instead use the whole formula
+  - Floor(Amount/50) or Ceil(Amount/50)
+  
+### Join After Group By
+
+Compute average order / clicks for each visitor?
+
+**click_data**
+| visitor | dt  |  impression   |   clicks  |   test_variant  |
+| ------- | --- | ------------- | --------- | ----------------|
+|     a   | 6/1 |     100       |   1       |   control       |
+|     b   | 6/1 |     20        |   5       |   control       |
+|   ...   | ... |   ...         |   ...     |     ...         |
+|    aaa  | 6/1 |    200        |   1       |  treatment      |
+|    bbb  | 6/1 |    40         |   5       |  treatment      |
+
+**purchase_data**
+|  visitor  |   dt    |  orders  |     $    |  test_variant  |
+| --------- | ------- | -------- | -------- | -------------- |
+|     aa    |   6/2   |     1    |    100   |   control      |
+|     bb    |   6/3   |     2    |    500   |   control      |
+|    ...    |   ...   |    ...   |    ...   |    ...         |
+|    aaaa   |   6/5   |     3    |   1000   |   treatment    | 
+|    bbbb   |   6/10  |     1    |   200    |   treatment    |
+
+```sql
+select a.visitor, s_orders/sum(a.clicks) as each_avg
+from click_data a
+left join (
+select visitor, sum(orders) as s_orders
+from purchase_data b
+group by visitor
+) b
+on a.visitor = b.visitor
+group by a.visitor, s_orders
+``` 
+
+
+
