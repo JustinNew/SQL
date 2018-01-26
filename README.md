@@ -314,5 +314,24 @@ on a.visitor = b.visitor
 group by a.visitor, s_orders
 ``` 
 
+### Case ... When ...
+
+```sql
+select top 100 date, 
+count(*) as count_all,
+sum (
+  case 
+    when content not like '%some condition%' then 1
+	when content like '%some condition%' then -1
+    else 0
+  end
+) as count_condition
+from sections
+group by date
+order by date
+```
+
+Note:
+  - Use ‘Case When … Then …’ when need to count two different conditions from one table
 
 
