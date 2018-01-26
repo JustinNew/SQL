@@ -314,6 +314,9 @@ on a.visitor = b.visitor
 group by a.visitor, s_orders
 ``` 
 
+Note:
+  - **sum() / sum()**, get one **sum()** in aggregation join sub query and then do another **sum()** in the main **select**
+
 ### Case ... When ...
 
 ```sql
