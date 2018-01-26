@@ -302,11 +302,6 @@ Compute average order / clicks for each visitor?
 |    aaaa   |   6/5   |     3    |   1000   |   treatment    | 
 |    bbbb   |   6/10  |     1    |   200    |   treatment    |
 
-| Plugin | README |
-| ------ | ------ |
-| Dropbox | [plugins/dropbox/README.md] [PlDb] |
-| Github | [plugins/github/README.md] [PlGh] |
-
 ```sql
 select a.visitor, s_orders/sum(a.clicks) as each_avg
 from click_data a
