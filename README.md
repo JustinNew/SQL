@@ -285,11 +285,11 @@ Compute average order / clicks for each visitor?
 **click_data**
 | visitor | dt | impression | clicks | test_variant |
 | ------- | -- | ---------- | ------ | ------------ |
-|     a   | 6/1 |     100       |   1       |   control       |
-|     b   | 6/1 |     20        |   5       |   control       |
-|   ...   | ... |   ...         |   ...     |     ...         |
-|    aaa  | 6/1 |    200        |   1       |  treatment      |
-|    bbb  | 6/1 |    40         |   5       |  treatment      |
+| a | 6/1 | 100 | 1 | control |
+| b | 6/1 | 20 | 5 | control |
+| ... | ... | ... | ... | ... |
+| aaa | 6/1 | 200 | 1 | treatment |
+| bbb | 6/1 | 40 | 5 | treatment |
 
 **purchase_data**
 | visitor | dt | orders | $ | test_variant |
