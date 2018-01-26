@@ -283,8 +283,8 @@ Note:
 Compute average order / clicks for each visitor?
 
 **click_data**
-| visitor | dt  |  impression   |   clicks  |   test_variant  |
-| ------- | --- | ------------- | --------- | ----------------|
+| visitor | dt | impression | clicks | test_variant |
+| ------- | -- | ---------- | ------ | ------------ |
 |     a   | 6/1 |     100       |   1       |   control       |
 |     b   | 6/1 |     20        |   5       |   control       |
 |   ...   | ... |   ...         |   ...     |     ...         |
@@ -292,8 +292,8 @@ Compute average order / clicks for each visitor?
 |    bbb  | 6/1 |    40         |   5       |  treatment      |
 
 **purchase_data**
-|  visitor  |   dt    |  orders  |     $    |  test_variant  |
-| --------- | ------- | -------- | -------- | -------------- |
+| visitor | dt | orders | $ | test_variant |
+| ------- | -- | ------ | - | ------------ |
 |     aa    |   6/2   |     1    |    100   |   control      |
 |     bb    |   6/3   |     2    |    500   |   control      |
 |    ...    |   ...   |    ...   |    ...   |    ...         |
