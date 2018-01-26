@@ -283,6 +283,7 @@ Note:
 Compute average order / clicks for each visitor?
 
 **click_data**
+
 | visitor | dt | impression | clicks | test_variant |
 | ------- | -- | ---------- | ------ | ------------ |
 | a | 6/1 | 100 | 1 | control |
@@ -292,6 +293,7 @@ Compute average order / clicks for each visitor?
 | bbb | 6/1 | 40 | 5 | treatment |
 
 **purchase_data**
+
 | visitor | dt | orders | $ | test_variant |
 | ------- | -- | ------ | - | ------------ |
 |     aa    |   6/2   |     1    |    100   |   control      |
@@ -299,6 +301,11 @@ Compute average order / clicks for each visitor?
 |    ...    |   ...   |    ...   |    ...   |    ...         |
 |    aaaa   |   6/5   |     3    |   1000   |   treatment    | 
 |    bbbb   |   6/10  |     1    |   200    |   treatment    |
+
+| Plugin | README |
+| ------ | ------ |
+| Dropbox | [plugins/dropbox/README.md] [PlDb] |
+| Github | [plugins/github/README.md] [PlGh] |
 
 ```sql
 select a.visitor, s_orders/sum(a.clicks) as each_avg
