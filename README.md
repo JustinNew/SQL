@@ -215,6 +215,33 @@ Note:
   - “WHERE” vs “HAVING”: The WHERE clause cannot be used to restrict groups. The HAVING clause should be used.
   - “HAVING” need to be used after ‘GROUP BY’
   
+#### 找出EmployeeID和所有对应的OrderID，EmployeeID有多于25的OrderID
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sql
+SELECT a.EmployeeID, a.OrderID, b.cnt 
+FROM Orders a
+left join (
+select EmployeeID, count(OrderID) as cnt
+from Orders 
+group by EmployeeID
+) b
+on a.EmployeeID = b.EmployeeID
+where b.cnt > 25
+Order by a.EmployeeID
+```
+or,
+
+```sql
+Select a.EmployeeID, a.OrderID From Orders a
+Where a.EmployeeID in (
+  Select b.EmployeeID From Orders b
+  Group by b.EmployeeID
+  Having count(b.OrderID) > 25
+)
+Order by a.EmployeeID, a.OrderID
+```
+  
 ### Most common elements in a column
 
 The most frequent *Quantity* in **OrderDetails**
@@ -336,5 +363,16 @@ order by date
 
 Note:
   - Use ‘Case When … Then …’ when need to count two different conditions from one table
+  
+### cast( VAR as float)
+
+给一个表有四个column：time, user_id, app_id, event ('imp' or 'click') 。大致意思：当一个user在玩一个app时，有一定几率会弹出一个窗口让user 添加信用卡（event "imp"），如果这个user按了 yes，那就是一个 click的event如何来判定这个弹窗口的效果？（click through rate），如何看哪个app click through rate最高，如何知道这个table的信息是否正确 （比如user 按了一次 yes，结果自动生成多次 click event）
+
+```sql
+select app_id, avg(rate) from (
+select user_id, app_id, cast(count(case when event = 'click' then 1 else 0) as float) / cast(count(case when event = 'imp' then 1 else 0) as float) as rate
+from table) sub
+group by app_id
+```
 
 
