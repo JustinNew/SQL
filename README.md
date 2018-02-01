@@ -370,9 +370,24 @@ Note:
 
 ```sql
 select app_id, avg(rate) from (
-select user_id, app_id, cast(count(case when event = 'click' then 1 else 0) as float) / cast(count(case when event = 'imp' then 1 else 0) as float) as rate
+select user_id, app_id, cast(count(case when event = 'click' then 1 else 0 end) as float) / cast(count(case when event = 'imp' then 1 else 0 end) as float) as rate
 from table) sub
 group by app_id
 ```
+
+### Write an SQL query that makes recommendations using the pages that your friends liked. Assume you have two tables: a two-column table of users and their friends, and a two-column table of users and the pages they liked. It should not recommend pages you already like.
+
+```sql 
+select f.userid, l.pageid
+from friends f
+JOIN likes l ON l.userid = f.friendid
+LEFT JOIN likes r ON (r.userid = f.userid AND r.pageid = l.pageid)
+where r.pageid IS NULL;
+```
+
+Note: 
+
+  - The trick of using **IS NULL** 
+
 
 
