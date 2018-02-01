@@ -167,6 +167,20 @@ Note:
 	on a.ShipperID = b.ShipperID
     ```
 
+### The trick of **Left Join** and **IS NULL**
+
+找出A table里的user_id且该user_id不在table B里
+
+```sql
+select A.id
+from A 
+left join B on A.id = B.id
+where B.id IS NULL;
+```
+Note:
+
+  - Use **IS NULL** instead of **=NULL**
+
 ### String Match
 
 Write an SQL query to find names of employee start with 'A'?
