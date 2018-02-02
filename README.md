@@ -21,12 +21,12 @@ where (select count(*) from OrderDetails b where b.Quantity >= a.Quantity) <= 3
 order by Quantity desc
 ```
 Note: 
-  - COUNT acts on WHERE b.Quantity >= a.Quantity which is also aggregation condition 
-  - Table self-join to be as a condition
-  - Using select to create a new column
-  - The order of b.Quantity > a.Quantity
-  - Pay attention to '>=' or '>'
-  - No need to use “ORDER BY” when using b.Quantity >= a.Quantity
+  - COUNT acts on WHERE **b.Quantity >= a.Quantity** which is also aggregation condition 
+  - Table self-join to be a condition
+  - Use **select** to create a new column
+  - The order of **b.Quantity > a.Quantity**
+  - Pay attention to **>=** or **>**
+  - No need to use **ORDER BY** when using **b.Quantity >= a.Quantity**
 
 ### Second Largest 
 
@@ -83,6 +83,25 @@ or
 SELECT OrderID, Quantity FROM OrderDetails a
 where (select count(*) from OrderDetails b where b.Quantity >= a.Quantity) = 2
 ```
+
+Interpretation of this SQL Query:
+  - Select **a.Quantity** in **OrderDetails a** and for each **b.Quantity** compare to this **a.Quantity**
+  - Count the number where **b.Quantity >= a.Quantity** for each record aggregately
+  - The first three largest **a.Quantity**: 120, 100, 90 
+  - ```sql
+    select count(*) from OrderDetails b where b.Quantity >= 120
+    ```
+	return 1
+	
+  - ```sql
+	select count(*) from OrderDetails b where b.Quantity >= 100
+	```
+    return 2
+	
+  - ```sql
+	select count(*) from OrderDetails b where b.Quantity >= 90
+	```
+    return 3
 
 ### Maximun in each group
 
