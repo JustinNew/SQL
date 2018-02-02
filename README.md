@@ -27,6 +27,7 @@ Note:
   - The order of **b.Quantity > a.Quantity**
   - Pay attention to **>=** or **>**
   - No need to use **ORDER BY** when using **b.Quantity >= a.Quantity**
+  - See below **Second Largest** for more explanation
 
 ### Second Largest 
 
