@@ -221,6 +221,8 @@ GROUP BY t.user_id, t.song_id;
 
 Note: 
   - use **UNION ALL** if the two tables have the same columns.
+  - With **UNION**, only distinct values are selected.
+  - The **UNION ALL** command is equal to the **UNION** command, except that **UNION ALL** selects all values.
 
 
 ### String Match
@@ -320,13 +322,22 @@ SELECT Quantity, count(Quantity) as cnt FROM [OrderDetails]
 group by Quantity)
 )
 ```
-or
+or,
 ```sql
 select Quantity, cnt from (
 SELECT Quantity, count(Quantity) as cnt FROM [OrderDetails]
 group by Quantity) a
 order by cnt desc
 limit 1 offset 1
+```
+or,
+```sql
+select Quantity, cnt from (
+SELECT Quantity, count(Quantity) as cnt FROM [OrderDetails]
+group by Quantity) a
+where (select count(cnt) from (
+SELECT Quantity, count(Quantity) as cnt FROM [OrderDetails]
+group by Quantity) b where b.cnt >= a.cnt) = 2
 ```
 
 ### Accumulative Sum 
