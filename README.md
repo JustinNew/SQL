@@ -465,6 +465,7 @@ Note:
 ### Tricky **Self Join** and Use **Not Exists**
 
 Table: company
+
 | Member_id | Company | Year_Start |
 | --------- | ------- | ---------- |
 | 1 | Microsoft | 2000 |
