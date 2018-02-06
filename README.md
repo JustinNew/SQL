@@ -476,7 +476,7 @@ Table: company
 | ... | ... | ... |
 
 How many members ever moved from Microsoft to Google? (both member #1 and member #2 count)
-
+ 
 ```sql
 SELECT COUNT(DISTINCT c1.Member_id)
 FROM company c1 
@@ -497,6 +497,21 @@ ON c1.Member_id = c2.Member_id
 AND c1.Company = 'Microsoft' 
 AND c2.Company = 'Google'
 AND c1.Year_Start < c2.Year_Start
+LEFT JOIN company c3
+WHERE c3.Member_id = c1.Member_id
+AND c3.Year_Start BETWEEN c1.Year_Start AND c2.Year_Start
+AND c3.Member_id IS NULL
+```
+
+or,
+```sql
+SELECT COUNT (DISTINCT c1.Member_id)
+FROM company c1 
+JOIN company c2
+ON c1.Member_id = c2.Member_id 
+AND c1.Company = 'Microsoft' 
+AND c2.Company = 'Google'
+AND c1.Year_Start < c2.Year_Start
 AND NOT EXISTS ( 
 SELECT c3.Member_id
 FROM company c3
@@ -507,23 +522,19 @@ AND c3.Year_Start BETWEEN c1.Year_Start AND c2.Year_Start
 
 Note: 
   - **NOT EXISTS**
+  - The **EXISTS** operator is used to test for the existence of any record in a subquery.
+  - The **EXISTS** operator returns true if the subquery returns one or more records.
   - **EXISTS** is used to return a boolean value, **JOIN** returns a whole other table
   - **EXISTS** is only used to test if a subquery returns results, and short circuits as soon as it does.
   - **EXISTS** is a semi-join; **JOIN** is a join
 
-or
+The following SQL statement returns TRUE and lists the suppliers with a product price less than 20.
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
 ```sql
-SELECT COUNT (DISTINCT c1.Member_id)
-FROM company c1 
-JOIN company c2
-ON c1.Member_id = c2.Member_id 
-AND c1.Company = 'Microsoft' 
-AND c2.Company = 'Google'
-AND c1.Year_Start < c2.Year_Start
-LEFT JOIN company c3
-WHERE c3.Member_id = c1.Member_id
-AND c3.Year_Start BETWEEN c1.Year_Start AND c2.Year_Start
-AND c3.Member_id IS NULL
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM Products WHERE SupplierId = Suppliers.supplierId AND Price < 20)
 ```
 
 
