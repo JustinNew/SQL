@@ -352,6 +352,12 @@ SELECT OrderDetailID, (select sum(Quantity) from OrderDetails b where b.OrderDet
 where accsum > 80
 ```
 
+or,
+```sql
+Select min(a.OrderDetailID) from OrderDetails a
+where (select sum(Quantity) from OrderDetails b where b.OrderDetailID <= a.OrderDetailID) >= 80
+```
+
 Note:
   - Using self join
   - Using sum()
@@ -411,7 +417,7 @@ group by a.visitor, s_orders
 Note:
   - **sum() / sum()**, get one **sum()** in aggregation join sub query and then do another **sum()** in the main **select**
 
-### Case ... When ...
+### Case ... When ... Then ... Else ... End
 
 ```sql
 select top 100 date, 
@@ -429,7 +435,7 @@ order by date
 ```
 
 Note:
-  - Use ‘Case When … Then …’ when need to count two different conditions from one table
+  - Use ‘Case When … Then … Else … End’ when need to count two different conditions from one table
   
 ### cast( VAR as float)
 
