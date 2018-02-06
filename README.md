@@ -462,5 +462,54 @@ Note:
 
   - The trick of using **IS NULL** 
 
+### Tricky **Self Join** and Use **Not Exists**
+
+Table: company
+| Member_id | Company | Year_Start |
+| --------- | ------- | ---------- |
+| 1 | Microsoft | 2000 |
+| 1 | Google | 2006 |
+| 1 | Facebook | 2012 |
+| 2 | Microsoft | 2001 |
+| 2 | Oracle | 2004 |
+| 2 | Google | 2007 |
+| ... | ... | ... |
+
+How many members ever moved from Microsoft to Google? (both member #1 and member #2 count)
+
+```sql
+SELECT COUNT(DISTINCT c1.Member_id)
+FROM company c1 
+JOIN company c2
+ON c1.Member_id = c2.Member_id 
+AND c1.Company = 'Microsoft' 
+AND c2.Company = 'Google'
+AND c1.Year_Start < c2.Year_Start
+```
+
+How many members moved directly from Microsoft to Google? (Member 2 does not count since Microsoft -> Oracle -> Google)
+
+```sql
+SELECT COUNT (DISTINCT c1.Member_id)
+FROM company c1 
+JOIN company c2
+ON c1.Member_id = c2.Member_id 
+AND c1.Company = 'Microsoft' 
+AND c2.Company = 'Google'
+AND c1.Year_Start < c2.Year_Start
+AND NOT EXISTS ( 
+SELECT c3.Member_id
+FROM company c3
+WHERE c3.Member_id = c1.Member_id
+AND c3.Year_Start BETWEEN c1.Year_Start AND c2.Year_Start
+)
+```
+
+Note: 
+  - **NOT EXISTS**
+  - **EXISTS** is used to return a boolean value, **JOIN** returns a whole other table
+  - **EXISTS** is only used to test if a subquery returns results, and short circuits as soon as it does.
+  - **EXISTS** is a semi-join; **JOIN** is a join
+
 
 
