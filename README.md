@@ -86,6 +86,7 @@ where (select count(*) from OrderDetails b where b.Quantity >= a.Quantity) = 2
 ```
 
 Interpretation of this SQL Query:
+
   - Select **a.Quantity** in **OrderDetails a** and for each **b.Quantity** compare to this **a.Quantity**
   - Count the number where **b.Quantity >= a.Quantity** for each record aggregately
   - The first three largest **a.Quantity**: 120, 100, 90 
@@ -477,7 +478,7 @@ having count(OrderID) > 35)
 ```
   - Result: **4, Peacock, Margaret** 
 
-Understanding the query:
+Interpretation of this SQL Query:
 
   - ```sql
 	SELECT EmployeeID, count(OrderID) FROM [Orders]
