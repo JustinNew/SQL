@@ -462,7 +462,50 @@ Note:
 
   - The trick of using **IS NULL** 
 
-### Tricky **Self Join** and Use **Not Exists**
+### **Exists**
+
+Find employee last name and first name who has more than 35 Orders (**OrderID > 35**).
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sql
+Select EmployeeID, LastName, FirstName from Employees a
+where exists (
+SELECT EmployeeID, count(OrderID) FROM [Orders] b
+where b.EmployeeID = a.EmployeeID
+group by EmployeeID
+having count(OrderID) > 35)
+```
+  - Result: **4, Peacock, Margaret** 
+
+Understanding the query:
+
+  - ```sql
+	SELECT EmployeeID, count(OrderID) FROM [Orders]
+	where EmployeeID = 4
+	group by EmployeeID
+	having count(OrderID) > 35
+    ```
+	
+    Result: **4, 40**. **where exists (...)** returns **True**.
+	
+  - ```sql
+	SELECT EmployeeID, count(OrderID) FROM [Orders]
+	where EmployeeID in (1,2,3,5,6,7,8,9)
+	group by EmployeeID
+	having count(OrderID) > 35
+    ```
+	
+    No result. **where exists (...)** returns **False**.
+
+Note: 
+  - The **EXISTS** operator is used to test for the existence of any record in a subquery.
+  - The **EXISTS** operator returns **True** if the subquery returns one or more records.
+  - **EXISTS** is used to return a boolean value, **JOIN** returns a whole other table
+  - **EXISTS** is only used to test if a subquery returns results, and short circuits as soon as it does.
+  - **EXISTS** is a semi-join; **JOIN** is a join
+  - **The columns in the Exists Subyquery can not be called in the main query.**
+
+#### Tricky **Self Join** and Use **Not Exists**
 
 Table: company
 
@@ -519,23 +562,6 @@ FROM company c3
 WHERE c3.Member_id = c1.Member_id
 AND c3.Year_Start BETWEEN c1.Year_Start AND c2.Year_Start
 )
-```
-
-Note: 
-  - **NOT EXISTS**
-  - The **EXISTS** operator is used to test for the existence of any record in a subquery.
-  - The **EXISTS** operator returns true if the subquery returns one or more records.
-  - **EXISTS** is used to return a boolean value, **JOIN** returns a whole other table
-  - **EXISTS** is only used to test if a subquery returns results, and short circuits as soon as it does.
-  - **EXISTS** is a semi-join; **JOIN** is a join
-
-The following SQL statement returns TRUE and lists the suppliers with a product price less than 20.
-https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
-
-```sql
-SELECT SupplierName
-FROM Suppliers
-WHERE EXISTS (SELECT ProductName FROM Products WHERE SupplierId = Suppliers.supplierId AND Price < 20)
 ```
 
 
