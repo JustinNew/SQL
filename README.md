@@ -465,7 +465,7 @@ Note:
 
 ### **Exists**
 
-Find employee last name and first name who has more than 35 Orders (**OrderID > 35**).
+Find employee last name and first name who has more than 35 Orders (**count(OrderID) > 35**).
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
