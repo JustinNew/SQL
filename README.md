@@ -565,7 +565,7 @@ AND c3.Year_Start BETWEEN c1.Year_Start AND c2.Year_Start
 )
 ```
 
-### Trick about ** Join and Count**
+### Trick about Join and Count
 
 一个log 数据表格 五列， Date, User_Id, Content_ID, Content_Type, Target_Id
 Content_Type 有5个，photo, post, share , like, comment
