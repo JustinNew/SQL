@@ -565,4 +565,81 @@ AND c3.Year_Start BETWEEN c1.Year_Start AND c2.Year_Start
 )
 ```
 
+### Trick about ** Join and Count**
+
+一个log 数据表格 五列， Date, User_Id, Content_ID, Content_Type, Target_Id
+Content_Type 有5个，photo, post, share , like, comment
+其中post, photo, share 是story, like 和comment是Action
+题目是问comment distribution by post
+
+```sql
+Select Target_ID, count(Content_ID) as cnt
+from table
+where Content_Type = 'comment'
+   and Target_ID in (select distinct Content_ID from table where Content_Type = 'post')
+group by Target_ID
+```
+or,
+```sql
+Select post_id, count(comment_id)
+from
+(Select a.content_id as post_id, b.content_id as comment_id
+From table a
+Left join table b
+On a.content_id = b.target_id
+Where a.content_type =‘Post’
+And b.content_type=‘Comment’
+) sub
+group by post_id
+```
+
+More directly:
+
+```sql
+Select a.content_id, count(b.user_id)
+From content_actions a
+Join content_actions b
+On b.target_id = a.content_id
+Where b.content_type = 'Comment'
+And a.content_type = 'Post'
+Group By a.content_id
+```
+
+Note: 
+  - join two tables, on … and where a.column condition and b.column condition. Example as follows:
+  https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+  
+```sql
+SELECT a.OrderID, a.ShipperID, a.EmployeeID, b.Quantity
+from Orders a
+left join OrderDetails b
+on a.OrderID = b.OrderID
+where a.ShipperID = 1
+and b.Quantity < 50
+```
+
+  - Directly count when join is the same as Count on a sub joined query:
+  https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+  
+```sql  
+SELECT ShipperName, Count(CustomerID) 
+FROM Orders a
+Join Shippers b
+On a.ShipperID = b.ShipperID
+Group By ShipperName
+```
+
+Same as,
+
+```sql
+Select ShipperName, Count(CustomerID)
+From (
+SELECT *, b.ShipperName 
+FROM Orders a
+Join Shippers b
+On a.ShipperID = b.ShipperID
+) sub
+Group By ShipperName
+```
+
 
