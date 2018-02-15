@@ -650,4 +650,28 @@ On a.ShipperID = b.ShipperID
 Group By ShipperName
 ```
 
+### Order By Two Columns Differently and Aggregate
+
+给一个table，studentid, courseid, grade, sql语句输出student最高成绩的一门课， 如果分数相同，输出courseid小的
+
+```sql
+SELECT studentid, courseid, MAX(grade) 
+FROM table
+GROUP BY studentid
+ORDER BY grade desc, courseid asc
+```
+
+StudentID -> ShipperID, courseID -> EmployeeID, grade -> CustomerID
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+```sql
+SELECT ShipperID, EmployeeID, max(CustomerID) FROM Orders
+Group By ShipperID
+Order By CustomerID desc, EmployeeID asc
+```
+
+Note: 
+  - group by ShipperID, then max() select the max CustomerID row ordered according to EmployeeID in group ShipperID
+  - EmployeeID is not in group by or aggregation count() or sum()
+
 
