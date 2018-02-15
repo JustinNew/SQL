@@ -202,6 +202,12 @@ Note:
 
   - Use **IS NULL** instead of **=NULL**
   
+### Count NULL and NOT NULL
+
+```sql
+SELECT COUNT(ID) as NotNull, SUM(CASE WHEN ID IS NULL then 1 else 0 end) as NullCount  
+```
+
 ### Union
 
 you have a table where you have date, user_id, song_id and count. It shows at the end of each day how many times in her history a user has listened to a given song. So count is cumulative sum. You have to update this on a daily basis based on a second table that records in real time when a user listens to a given song. Basically, at the end of each day, you go to this second table and pull a count of each user/song combination and then add this count to the first table that has the lifetime count. If it is the first time a user has listened to a given song, you won't have this pair in the lifetime table, so you have to create the pair there and then add the count of the last day.  
