@@ -507,7 +507,8 @@ Interpretation of this SQL Query:
 	
     No result. **where exists (...)** returns **False**.
 
-Note: 
+Note:
+  - There is a **Where** statement in the **EXISTS** subquery which connects the subquery with the main query. 
   - The **EXISTS** operator is used to test for the existence of any record in a subquery.
   - The **EXISTS** operator returns **True** if the subquery returns one or more records.
   - **EXISTS** is used to return a boolean value, **JOIN** returns a whole other table
