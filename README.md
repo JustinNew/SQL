@@ -113,6 +113,11 @@ Using **rank() over()**
 RANK() OVER (PARTITION BY column_ID ORDER BY column_ID) AS rank_id
 ```
 
+Other similar queries:
+```sql
+row_number() over(order by customer_atg_id) as record_id
+```
+
 Maximun Quantity in each of the *OrderID*:
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
