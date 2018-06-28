@@ -680,4 +680,22 @@ Note:
   - group by ShipperID, then max() select the max CustomerID row ordered according to EmployeeID in group ShipperID
   - EmployeeID is not in group by or aggregation count() or sum()
 
+### Sampling With rand()
+
+Randomly select 100 records
+```sql
+select atg_id, map_id
+from propensity
+order by rand() 
+LIMIT 10
+```
+
+or 
+```sql
+select atg_id, map_id
+from propensity
+distribute by rand()
+sort by rand() 
+LIMIT 10
+```
 
