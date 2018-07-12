@@ -459,7 +459,8 @@ Note:
 ```sql
 select app_id, avg(rate) from (
 select user_id, app_id, cast(count(case when event = 'click' then 1 else 0 end) as float) / cast(count(case when event = 'imp' then 1 else 0 end) as float) as rate
-from table) sub
+from table
+group by user_id, app_id) sub
 group by app_id
 ```
 
