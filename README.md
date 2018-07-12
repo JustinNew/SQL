@@ -477,6 +477,7 @@ where r.pageid IS NULL;
 Note: 
 
   - The trick of using **IS NULL** 
+  - Whenever the question is something in table_a and not in table_b, use **'='** and **'IS NULL'**
 
 ### **Exists**
 
