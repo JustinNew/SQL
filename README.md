@@ -662,20 +662,32 @@ Group By ShipperName
 
 给一个table，studentid, courseid, grade, sql语句输出student最高成绩的一门课， 如果分数相同，输出courseid小的
 
+In MySQL,
 ```sql
-SELECT studentid, courseid, MAX(grade) 
-FROM table
-GROUP BY studentid
-ORDER BY grade desc, courseid asc
+SELECT studentid, courseid, grade
+   FROM
+     (SELECT studentid, courseid, grade, 
+                  @student_rank := IF(@current_student = studentid, @student_rank + 1, 1) AS student_rank,
+                  @current_student := studentid
+       FROM table
+       ORDER BY studentid, grade DESC
+     ) ranked
+   WHERE student_rank <= 1
 ```
 
-StudentID -> ShipperID, courseID -> EmployeeID, grade -> CustomerID
+In Orders, StudentID -> ShipperID, courseID -> EmployeeID, grade -> CustomerID
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
-SELECT ShipperID, EmployeeID, max(CustomerID) FROM Orders
-Group By ShipperID
-Order By CustomerID desc, EmployeeID asc
+SELECT ShipperID, EmployeeID, CustomerID
+   FROM
+     (SELECT ShipperID, EmployeeID, CustomerID, 
+                  @Shipper_rank := IF(@current_Shipper = ShipperID, @Shipper_rank + 1, 1) AS Shipper_rank,
+                  @current_Shipper := ShipperID
+       FROM Orders
+       ORDER BY ShipperID, CustomerID DESC
+     ) ranked
+   WHERE Shipper_rank <= 1
 ```
 
 Note: 
