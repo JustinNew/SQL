@@ -662,6 +662,31 @@ Group By ShipperName
 
 给一个table，studentid, courseid, grade, sql语句输出student最高成绩的一门课， 如果分数相同，输出courseid小的
 
+```sql
+select b.studentid, min(b.courseid), max(b.grade) from table b
+join (
+select studentid, max(grade) as grade from table c
+group by studentid
+) a
+on a.studentid = b.studentid 
+and a.grade = b.grade
+group by b.studentid
+```
+
+Note: 
+  - ```sql
+    select studentid, min(courseid), max(grade) from table
+    group by studentid
+	```
+	This does not work. min(courseid) will return the min of all the courseids in the studentid group and max(grade) will return the max of all the grades in studentid. This min and max are independent of each other.
+  - ```sql
+    select studentid, courseid, max(grade) from table
+	group by studentid
+    ``` 
+	This does not work. As courseid is not in group by.
+  - group by ShipperID, then max() select the max CustomerID row ordered according to EmployeeID in group ShipperID
+  - EmployeeID is not in group by or aggregation count() or sum()
+
 In MySQL,
 ```sql
 SELECT studentid, courseid, grade
@@ -679,6 +704,17 @@ In Orders, StudentID -> ShipperID, courseID -> EmployeeID, grade -> CustomerID
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 
 ```sql
+select b.ShipperID, min(b.EmployeeID), max(b.CustomerID) from Orders b
+join (
+select ShipperID, max(CustomerID) as CustomerID from Orders c
+group by ShipperID
+) a
+on a.ShipperID = b.ShipperID 
+and a.CustomerID = b.CustomerID
+group by b.ShipperID
+```
+
+```sql
 SELECT ShipperID, EmployeeID, CustomerID
    FROM
      (SELECT ShipperID, EmployeeID, CustomerID, 
@@ -689,10 +725,6 @@ SELECT ShipperID, EmployeeID, CustomerID
      ) ranked
    WHERE Shipper_rank <= 1
 ```
-
-Note: 
-  - group by ShipperID, then max() select the max CustomerID row ordered according to EmployeeID in group ShipperID
-  - EmployeeID is not in group by or aggregation count() or sum()
 
 ### Sampling With rand()
 
