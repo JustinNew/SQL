@@ -32,27 +32,27 @@ Note:
 ### Self Join
 
 Rank Scores
-+----+-------+
+|----|-------|
 | Id | Score |
-+----+-------+
+|----|-------|
 | 1  | 3.50  |
 | 2  | 3.65  |
 | 3  | 4.00  |
 | 4  | 3.85  |
 | 5  | 4.00  |
 | 6  | 3.65  |
-+----+-------+
+|----|-------|
 as
-+-------+------+
+|-------|------|
 | Score | Rank |
-+-------+------+
+|-------|------|
 | 4.00  | 1    |
 | 4.00  | 1    |
 | 3.85  | 2    |
 | 3.65  | 3    |
 | 3.65  | 3    |
 | 3.50  | 4    |
-+-------+------+
+|-------|------|
 
 ```sql
 select a.Score, (select count(*) from (select distinct(Score) from Scores
@@ -61,7 +61,10 @@ from (
 select Score from Scores
 order by Score desc) a
 ```
-
+Note:
+  - **self join** is very powerfull. 
+  - Use **select count(*) from table a where c.Score >= a.Score** to create a new column
+  
 ### Second Largest 
 
 Using **LIMIT**
