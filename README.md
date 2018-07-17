@@ -544,7 +544,7 @@ SELECT COUNT(DISTINCT c1.Member_id)
 FROM company c1 
 JOIN company c2
 ON c1.Member_id = c2.Member_id 
-AND c1.Company = 'Microsoft' 
+WHERE c1.Company = 'Microsoft' 
 AND c2.Company = 'Google'
 AND c1.Year_Start < c2.Year_Start
 ```
