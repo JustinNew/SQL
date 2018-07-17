@@ -29,6 +29,39 @@ Note:
   - No need to use **ORDER BY** when using **b.Quantity >= a.Quantity**
   - See below **Second Largest** for more explanation
 
+### Self Join
+
+Rank Scores
++----+-------+
+| Id | Score |
++----+-------+
+| 1  | 3.50  |
+| 2  | 3.65  |
+| 3  | 4.00  |
+| 4  | 3.85  |
+| 5  | 4.00  |
+| 6  | 3.65  |
++----+-------+
+as
++-------+------+
+| Score | Rank |
++-------+------+
+| 4.00  | 1    |
+| 4.00  | 1    |
+| 3.85  | 2    |
+| 3.65  | 3    |
+| 3.65  | 3    |
+| 3.50  | 4    |
++-------+------+
+
+```sql
+select a.Score, (select count(*) from (select distinct(Score) from Scores
+order by Score desc) c where c.Score >= a.Score) as Rank
+from (
+select Score from Scores
+order by Score desc) a
+```
+
 ### Second Largest 
 
 Using **LIMIT**
