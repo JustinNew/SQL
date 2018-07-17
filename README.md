@@ -33,7 +33,6 @@ Note:
 
 Rank Scores
 
-|----|-------|
 | Id | Score |
 |----|-------|
 | 1  | 3.50  |
@@ -42,11 +41,9 @@ Rank Scores
 | 4  | 3.85  |
 | 5  | 4.00  |
 | 6  | 3.65  |
-|----|-------|
 
 as
 
-|-------|------|
 | Score | Rank |
 |-------|------|
 | 4.00  | 1    |
@@ -55,7 +52,6 @@ as
 | 3.65  | 3    |
 | 3.65  | 3    |
 | 3.50  | 4    |
-|-------|------|
 
 ```sql
 select a.Score, (select count(*) from (select distinct(Score) from Scores
