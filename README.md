@@ -560,8 +560,8 @@ WHERE c1.Company = 'Microsoft'
 AND c2.Company = 'Google'
 AND c1.Year_Start < c2.Year_Start
 LEFT JOIN company c3
-WHERE c3.Member_id = c1.Member_id
-AND c3.Year_Start BETWEEN c1.Year_Start AND c2.Year_Start
+ON c3.Member_id = c1.Member_id
+WHERE c3.Year_Start BETWEEN c1.Year_Start AND c2.Year_Start
 AND c3.Member_id IS NULL
 ```
 
