@@ -71,6 +71,18 @@ select Quantity from OrderDetails
 order by Quantity desc) a
 ```
 
+or,
+
+```sql
+select c.Quantity, sub3.rnk as rank from OrderDetails c
+join
+(select sub1.Quantity, (select count(*) from (SELECT distinct(Quantity) FROM OrderDetails) sub2 where sub2.Quantity >= sub1.Quantity) as rnk 
+from 
+(SELECT distinct(Quantity) FROM OrderDetails) sub1) sub3
+on c.Quantity = sub3.Quantity
+order by Rank asc
+```
+
 Note:
   - **self join** is very powerfull. 
   - Use **select count(*) from table a where c.Score >= a.Score** to create a new column
