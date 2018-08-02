@@ -60,6 +60,17 @@ from (
 select Score from Scores
 order by Score desc) a
 ```
+
+[Rank Quantity](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all) 
+
+```sql
+select a.Quantity, (select count(*) from (select distinct(Quantity) from OrderDetails
+order by Quantity desc) c where c.Quantity >= a.Quantity) as Rank
+from (
+select Quantity from OrderDetails
+order by Quantity desc) a
+```
+
 Note:
   - **self join** is very powerfull. 
   - Use **select count(*) from table a where c.Score >= a.Score** to create a new column
