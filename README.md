@@ -411,10 +411,14 @@ SELECT Quantity, count(Quantity) as cnt FROM [OrderDetails]
 group by Quantity) b where b.cnt >= a.cnt) = 2
 ```
 
+Note:
+  - one column table to two columns table:
+    - one column, itself
+	- second column, **count(itself)** with **group by itself**
+
 ### Accumulative Sum 
 
-Get the first *OrderDetailID* from which the accumulative number of orders larger than 80 from **OrderDetails**
-https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+[Get the first *OrderDetailID* from which the accumulative number of orders larger than 80 from **OrderDetails**](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all)
 
 ```sql
 select min(OrderDetailID), accsum from (
