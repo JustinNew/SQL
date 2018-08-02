@@ -176,8 +176,7 @@ Other similar queries:
 row_number() over(order by customer_atg_id) as record_id
 ```
 
-Maximun Quantity in each of the *OrderID*:
-https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+[Maximun Quantity in each of the *OrderID*:](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all)
 
 ```sql
 SELECT OrderDetailID, OrderID, max(Quantity) FROM OrderDetails
@@ -186,6 +185,8 @@ group by OrderID
 
 Note: 
   - **MAX** acts on each of the group, similarly as **MIN**, **SUM**, etc. 
+  - In some database, this query will not work as **OrderDetailID** is not in **group by**.
+    - In [w3schools](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all), it works.
   
 ### Between Date
 
