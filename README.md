@@ -163,7 +163,7 @@ Interpretation of this SQL Query:
 	```
     return 3
 
-### Maximun in each group
+### Maximum in each group
 
 Using **rank() over()**
 
