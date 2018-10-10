@@ -203,6 +203,19 @@ order by ShipperID, CustomerID) b where b.ShipperID == a.ShipperID and b.Custome
 Note:
   - **self join** and two where condition count
 
+```sql
+SELECT rs.Field1,rs.Field2 
+    FROM (
+        SELECT Field1, Field2, 
+               Rank() over (Partition BY Section
+                ORDER BY RankCriteria DESC ) AS Rank
+        FROM table
+        ) rs WHERE Rank <= 10
+```
+
+Note:
+  - **Rank() over(Partition by ... Order by ...) as Rnk** 
+
 ### Unique Combination Of Columns
 
 给一个flight的table，有depature city和 arrival city，求unique的不论顺序的组合
