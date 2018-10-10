@@ -188,6 +188,36 @@ Note:
   - In some database, this query will not work as **OrderDetailID** is not in **group by**.
     - In [w3schools](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all), it works.
   
+### Unique Combination Of Columns
+
+给一个flight的table，有depature city和 arrival city，求unique的不论顺序的组合
+
+| depature| arrival |
+|---------|---------|
+|   A     |    B    |
+|   B     |    A    |
+
+结果只出现 A, B。
+
+[Unique combination of EmployeeID and ShipperID.](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all)
+
+```sql
+select distinct one, two from 
+(SELECT (case when EmployeeID > ShipperID then ShipperID else EmployeeID end) as one,  (case when EmployeeID > ShipperID then EmployeeID else ShipperID end) as two FROM [Orders]) as sub
+```
+
+or,
+```sql
+select one, two from 
+(SELECT (case when EmployeeID > ShipperID then ShipperID else EmployeeID end) as one,  (case when EmployeeID > ShipperID then EmployeeID else ShipperID end) as two FROM [Orders]) as sub
+group by one, two
+```
+
+Note:
+  - **distinct(colA)** or **distinct colA, colB**
+  - Use **group by** to get unique combination
+  - Use **case when ... then ... end** to order and do selection 
+
 ### Between Date
 
 *OrderID* between *'1996-09-02'* and *'1996-09-06'*:
