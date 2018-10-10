@@ -188,6 +188,21 @@ Note:
   - In some database, this query will not work as **OrderDetailID** is not in **group by**.
     - In [w3schools](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all), it works.
   
+### Top 5 in each of the group
+
+[Select the top 5 CustomerID in each of the ShipperID](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all)
+
+```sql
+Select ShipperID, CustomerID from 
+(SELECT ShipperID, CustomerID FROM [Orders]
+order by ShipperID, CustomerID) a
+where (select count(*) from (SELECT ShipperID, CustomerID FROM [Orders]
+order by ShipperID, CustomerID) b where b.ShipperID == a.ShipperID and b.CustomerID <= a.CustomerID) <= 5
+```
+
+Note:
+  - **self join** and two where condition count
+
 ### Unique Combination Of Columns
 
 给一个flight的table，有depature city和 arrival city，求unique的不论顺序的组合
