@@ -64,11 +64,11 @@ order by Score desc) a
 [Rank Quantity](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all) 
 
 ```sql
-select a.Quantity, (select count(*) from (select distinct(Quantity) from OrderDetails
-order by Quantity desc) c where c.Quantity >= a.Quantity) as Rank
-from (
-select Quantity from OrderDetails
-order by Quantity desc) a
+Select a.Quantity, (select count(*) from 
+(Select distinct b.Quantity from OrderDetails b) sub 
+where sub.Quantity >= a.Quantity) as rnk
+from OrderDetails a
+Order by rnk
 ```
 
 or,
@@ -76,7 +76,9 @@ or,
 ```sql
 select c.Quantity, sub3.rnk as rank from OrderDetails c
 join
-(select sub1.Quantity, (select count(*) from (SELECT distinct(Quantity) FROM OrderDetails) sub2 where sub2.Quantity >= sub1.Quantity) as rnk 
+(select sub1.Quantity, (select count(*) from 
+(SELECT distinct(Quantity) FROM OrderDetails) sub2 
+where sub2.Quantity >= sub1.Quantity) as rnk 
 from 
 (SELECT distinct(Quantity) FROM OrderDetails) sub1) sub3
 on c.Quantity = sub3.Quantity
