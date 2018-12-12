@@ -864,4 +864,23 @@ distribute by rand()
 sort by rand() 
 LIMIT 10
 ```
+### With .. AS Clause
 
+  - The SQL WITH clause allows you to give a sub-query block a name (a process also called sub-query refactoring), which can be referenced in several places within the main SQL query.
+  - **WITH ... AS ...** creates a temporary Table that can be used in the complex query.
+
+```sql
+WITH query_name1 AS (
+     SELECT ...
+     )
+
+   , query_name2 AS (
+     SELECT ...
+       FROM query_name1
+        ...
+     )
+
+SELECT ... 
+  FROM query_name2
+    ...
+```
