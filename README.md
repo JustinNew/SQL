@@ -884,3 +884,12 @@ SELECT ...
   FROM query_name2
     ...
 ```
+
+### Select Column Names
+
+```sql
+select *
+from INFORMATION_SCHEMA.COLUMNS
+where TABLE_NAME = 'FACT_EVENT_AVAILABILITY'
+and TABLE_SCHEMA = 'DWH'
+```
