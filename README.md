@@ -893,3 +893,18 @@ from INFORMATION_SCHEMA.COLUMNS
 where TABLE_NAME = 'FACT_EVENT_AVAILABILITY'
 and TABLE_SCHEMA = 'DWH'
 ```
+
+### Select Quote String
+
+```sql
+SELECT 'warehouse' as source_type, 1 as priority
+UNION
+SELECT 'cart' as source_type, 2 as priority
+```
+
+This will create a table as follows.
+
+|  source_type |  priority |
+|  ----------- |  -------- |
+|  warehouse   |     1     |
+|    cart      |     2     |
